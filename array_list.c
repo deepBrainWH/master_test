@@ -78,6 +78,7 @@ int is_empty(SeqList *list) {
 
 void destroy_list(SeqList *list) {
     free(list->data);
+    free(list);
 }
 
 void delete_array_list_minum_value(SeqList *list) {
@@ -275,6 +276,54 @@ void find_element_if_exist(SeqList *list, ElementType x) {
     }
     list->data[right+1] = x;
     list->length += 1;
+}
+
+ElementType find_middle_number(SeqList list1, SeqList list2) {
+    is_valid(&list1);
+    is_valid(&list2);
+
+    int m = list1.length;
+    int n = list2.length;
+
+    int mid_index = ceil((m + n)/2.0);
+    int i = 0;
+    int p1 = 0;
+    int p2 = 0;
+    if(list1.data[list1.length-1]<list2.data[0]){
+        if(mid_index>list1.length){
+            return list2.data[mid_index-list1.length-1];
+        }else{
+            return list1.data[mid_index-1];
+        }
+    }else if(list2.data[list2.length-1]<list1.data[0]){
+        if(mid_index>list2.length){
+            return list1.data[mid_index-list2.length-1];
+        }else{
+            return list2.data[mid_index-1];
+        }
+    }
+
+    while (i<=mid_index){
+        if(list1.data[p1]<list2.data[p2]){
+            i ++;
+            if(i == mid_index){
+                return list1.data[p1];
+            }
+            p1 ++;
+        }else{
+            i ++;
+            if(i == mid_index){
+                return list2.data[p2];
+            }
+            p2 ++;
+        }
+    }
+    return -9999;
+}
+
+ElementType find_chiefly_element(SeqList list) {
+
+    return -1;
 }
 
 

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "single_direct_linked_list.h"
+#include "link_list.h"
 #include "array_list.h"
 
 int main()
@@ -65,8 +65,23 @@ int main()
     find_element_if_exist(result, 4);
     print_list(result);
 
+    //Finding middle number test.
+    SeqList* t1 = (SeqList*)malloc(sizeof(SeqList));
+    t1->data = (ElementType []){11, 13, 15, 17, 19};
+    t1->length = 5;
+    
+    SeqList* t2 = (SeqList*)malloc(sizeof(SeqList));
+    t2->data = (ElementType []){2, 4, 6, 8, 20};
+    t2->length = 5;
 
+    ElementType middle_number = find_middle_number(*t1, *t2);
+    printf("\nMiddle number of list t1 and t2 is : %d\n", middle_number);
+    destroy_list(t1);
+    destroy_list(t2);
+
+    destroy_list(result);
     destroy_list(&list);
+    destroy_list(&list2);
 
     return 0;
 }

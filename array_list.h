@@ -4,7 +4,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
-
+#include <math.h>
 #define MAX_SIZE 100
 
 typedef int ElementType;
@@ -56,6 +56,10 @@ void combine_two_sorted_array_list(SeqList* list1, SeqList* list2, SeqList* resu
 void invert_two_array_list(SeqList* list, int m, int n);
 
 void find_element_if_exist(SeqList* list, ElementType num);
+
+ElementType find_middle_number(SeqList list1, SeqList list2);
+
+ElementType find_chiefly_element(SeqList list);
 
 void is_valid(SeqList* list);
 
