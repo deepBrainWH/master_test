@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "link_list/link_list.h"
 #include "array_list/array_list.h"
 
 int main()

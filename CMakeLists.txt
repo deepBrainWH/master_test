@@ -12,6 +12,8 @@ add_subdirectory(src/array_list)
 add_subdirectory(src/link_list)
 
 
-add_executable(array_list_test ./src/main.c)
-add_executable(link_list_test ./src/main2.c)
-target_link_libraries(array_list_test m array_list link_list)
+add_executable(array_list_test src/main_array_list.c)
+target_link_libraries(array_list_test m array_list)
+
+add_executable(link_list_test src/main_link_list.c)
+target_link_libraries(link_list_test link_list)
