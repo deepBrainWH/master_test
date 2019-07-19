@@ -76,10 +76,12 @@ int main()
 
     ElementType middle_number = find_middle_number(*t1, *t2);
     printf("\nMiddle number of list t1 and t2 is : %d\n", middle_number);
-    destroy_list(t1);
-    destroy_list(t2);
 
-    destroy_list(result);
+
+    free(t1);
+    free(t2);
+    free(result->data);
+    free(result);
     destroy_list(&list);
     destroy_list(&list2);
 
