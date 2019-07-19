@@ -2,7 +2,7 @@
 
 void create_link_list1(LinkList *list) {
     ll_is_valid(list);
-    Element_t input = NULL;
+    Element_t input = (Element_t) NULL;
 
     do{
         scanf("%d", &input);

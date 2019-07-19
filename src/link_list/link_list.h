@@ -14,7 +14,6 @@ struct Node{
 };
 
 
-
 void create_link_list1(LinkList* list);
 
 void ll_insert_element(LinkList* list, Element_t number);
