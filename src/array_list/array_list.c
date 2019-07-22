@@ -274,7 +274,7 @@ void find_element_if_exist(SeqList *list, ElementType x) {
     for (int i = list->length; i > right; i--) {
         list->data[i] = list->data[i - 1];
     }
-    list->data[right+1] = x;
+    list->data[right + 1] = x;
     list->length += 1;
 }
 
@@ -285,44 +285,66 @@ ElementType find_middle_number(SeqList list1, SeqList list2) {
     int m = list1.length;
     int n = list2.length;
 
-    int mid_index = ceil((m + n)/2.0);
+    int mid_index = ceil((m + n) / 2.0);
     int i = 0;
     int p1 = 0;
     int p2 = 0;
-    if(list1.data[list1.length-1]<list2.data[0]){
-        if(mid_index>list1.length){
-            return list2.data[mid_index-list1.length-1];
-        }else{
-            return list1.data[mid_index-1];
+    if (list1.data[list1.length - 1] < list2.data[0]) {
+        if (mid_index > list1.length) {
+            return list2.data[mid_index - list1.length - 1];
+        } else {
+            return list1.data[mid_index - 1];
         }
-    }else if(list2.data[list2.length-1]<list1.data[0]){
-        if(mid_index>list2.length){
-            return list1.data[mid_index-list2.length-1];
-        }else{
-            return list2.data[mid_index-1];
+    } else if (list2.data[list2.length - 1] < list1.data[0]) {
+        if (mid_index > list2.length) {
+            return list1.data[mid_index - list2.length - 1];
+        } else {
+            return list2.data[mid_index - 1];
         }
     }
 
-    while (i<=mid_index){
-        if(list1.data[p1]<list2.data[p2]){
-            i ++;
-            if(i == mid_index){
+    while (i <= mid_index) {
+        if (list1.data[p1] < list2.data[p2]) {
+            i++;
+            if (i == mid_index) {
                 return list1.data[p1];
             }
-            p1 ++;
-        }else{
-            i ++;
-            if(i == mid_index){
+            p1++;
+        } else {
+            i++;
+            if (i == mid_index) {
                 return list2.data[p2];
             }
-            p2 ++;
+            p2++;
         }
     }
     return -9999;
 }
 
 ElementType find_chiefly_element(SeqList list) {
-
+    ElementType c = list.data[0];
+    int count = 1;
+    int n = list.length;
+    for (int i = 1; i < n; i++) {
+        if (list.data[i] == c) {
+            count++;
+        } else {
+            if (count > 0) {
+                count--;
+            } else {
+                c = list.data[i];
+                count = 1;
+            }
+        }
+    }
+    if (count > 0) {
+        for (int i = count = 0; i < n; i++) {
+            if(list.data[i]==c){
+                count++;
+            }
+        }
+    }
+    if (count>n/2)return c;
     return -1;
 }
 

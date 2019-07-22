@@ -1,1 +1,2 @@
 add_library(link_list link_list.h link_list.c)
+target_link_libraries(link_list stack_queue)

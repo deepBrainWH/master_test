@@ -1,0 +1,1 @@
+add_library(multithreading thread_1.h thread_1.c function_point.h function_point.c)
