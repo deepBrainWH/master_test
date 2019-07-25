@@ -255,17 +255,17 @@ void print_cycle_single_direction_linked_list(LinkList *head, int times) {
 }
 
 void delete_node_by_value(Node *p, Element_t value) {
-    Node* t1 = p;
-    Node* t2 = p->next;
-    Node* t3 = NULL;
+    Node *t1 = p;
+    Node *t2 = p->next;
+    Node *t3 = NULL;
 
-    while (t2!=NULL){
-        if(t2->val==value){
+    while (t2 != NULL) {
+        if (t2->val == value) {
             t3 = t2;
             t2 = t2->next;
             t1->next = t2;
             free(t3);
-        }else{
+        } else {
             t1 = t1->next;
             t2 = t2->next;
         }
@@ -273,25 +273,132 @@ void delete_node_by_value(Node *p, Element_t value) {
 }
 
 void invert_print_linked_list(Node head) {
-    if(head.next!=NULL){
+    if (head.next != NULL) {
         invert_print_linked_list(*head.next);
     }
     printf("%d\t", head.val);
 }
 
 void invert_print_linked_list2(LinkList *head) {
-    Stack* stack = (Stack*)malloc(sizeof(Stack));
+    Stack *stack = (Stack *) malloc(sizeof(Stack));
     init_stack(stack);
-    Node* p = head;
-    while (p!=NULL){
-        push_stack(stack, (stack_element_t)p->val);
+    Node *p = head;
+    while (p != NULL) {
+        push_stack(stack, (stack_element_t) p->val);
         p = p->next;
     }
 
-    while (!is_empty_stack(stack)){
+    while (!is_empty_stack(stack)) {
         printf("%d\t", pop_stack(stack));
     }
     free_stack(stack);
+}
+
+Element_t delete_the_minimum_node(LinkList *list) {
+    Node *min_node_pre = list;//最小值节点前驱
+    Node *min_node = list->next;//最小值节点
+    Element_t min = min_node->val;//默认第一个节点值最小
+
+    Node *p = min_node;//working point.
+    Node *p_pre = list;//Previous working point.
+    while (p != NULL) {
+        if (p->val < min) {
+            min = p->val;
+            min_node = p;
+            min_node_pre = p_pre;
+        }
+        p = p->next;
+        p_pre = p_pre->next;
+    }
+
+    Node *t = min_node;
+    min_node_pre->next = min_node->next;
+    free(t);
+    return min;
+}
+
+void invert_linked_list(LinkList *empty_head_node) {
+    Node *head = empty_head_node;
+    Node *p = head->next;
+
+    head->next = NULL;
+    Node *p_next = NULL;
+
+    while (p != NULL) {
+        p_next = p->next;
+        p->next = head->next;
+        head->next = p;
+        p = p_next;
+    }
+}
+
+void invert_linked_list2(LinkList *empty_head_node) {
+    Node* head = empty_head_node;
+    Node* p_pre = NULL;
+    Node* p = empty_head_node->next;
+    Node* p_next = p->next;
+
+    while (p != NULL){
+        p->next = p_pre;
+        p_pre = p;
+        p = p_next;
+        if(p_next != NULL)
+            p_next = p_next->next;
+    }
+    head->next = p_pre;
+}
+
+LinkList* create_linked_list_by_value_ascent() {
+
+    Node* empty_head = (Node*)malloc(sizeof(Node));
+    empty_head->val = -1;
+    empty_head->next = NULL;
+
+    Element_t value;
+    printf("Please input the value which you want to add to link list and end with 9999.\n");
+    scanf("%d", &value);
+
+    Node* p = empty_head;
+
+    while (value != 9999) {
+        while (p != NULL && p->next != NULL && p->next->val < value) {
+            p = p->next;
+        }
+        Node *tmp = (Node *) malloc(sizeof(Node));
+        tmp->val = value;
+        tmp->next = p->next;
+        p->next = tmp;
+
+        fflush(stdin);
+        printf("Please input the value which you want to add to link list and end with 9999.\n");
+        scanf("%d", &value);
+
+        p = empty_head;
+    }
+    return empty_head;
+}
+
+void delete_node_which_value_between_two_number(LinkList *empty_head, Element_t n1, Element_t n2) {
+    if(n1>=n2){
+        printf("Please input correct numbers of n1 and n2.\n");
+        exit(-1);
+    }
+    Node* p = empty_head->next;
+    Node* p_pre = empty_head;
+    Node* tmp = NULL;
+
+    while (p!=NULL){
+        if(p->val>n1 && p->val < n2){
+            tmp = p;
+            p_pre->next = p->next;
+            p = p->next;
+            free(tmp);
+        }else{
+            p = p->next;
+            p_pre = p_pre->next;
+        }
+    }
+
 }
 
 

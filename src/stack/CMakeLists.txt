@@ -1,1 +1,1 @@
-add_library(stack_queue stack_queue.h stack_queue.c)
+add_library(stack_queue STATIC stack_queue.h stack_queue.c)

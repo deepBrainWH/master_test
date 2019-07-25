@@ -1,8 +1,8 @@
 //
 // Created by wangheng on 7/20/19.
 //
-#include "multithreading/thread_1.h"
-#include "multithreading/function_point.h"
+#include "../multithreading/thread_1.h"
+#include "../multithreading/function_point.h"
 
 int main(){
 

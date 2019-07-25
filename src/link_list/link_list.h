@@ -68,6 +68,15 @@ void print_doubly_linked_list(BiLinkList list);
 
 int find_element(LinkList* list, Element_t value);
 
+Element_t delete_the_minimum_node(LinkList* list);
+
+void invert_linked_list(LinkList* empty_head_node);
+
+void invert_linked_list2(LinkList* empty_head_node);
+
+LinkList* create_linked_list_by_value_ascent();
+
+void delete_node_which_value_between_two_number(LinkList* empty_head, Element_t n1, Element_t n2);
 
 void is_valid(LinkList* list);
 
