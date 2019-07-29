@@ -969,7 +969,7 @@ void find_Kth_backwards_value(LinkList *empty_head, int k) {
 
 void process_linked_list(LinkList *empty_head, int n) {
     is_valid(empty_head);
-    int* auxiliary_array = (int*)malloc(sizeof(n+1));
+    int* auxiliary_array = (int*)malloc(sizeof(int)*(n+1));
     for(int i = 0;i<=n;i++){
         auxiliary_array[i] = 0;
     }
@@ -990,6 +990,7 @@ void process_linked_list(LinkList *empty_head, int n) {
             free(tmp);
         }
     }
+    free(auxiliary_array);
 }
 
 
