@@ -8,7 +8,8 @@ target_include_directories(array_list_test PRIVATE
 add_executable(link_list_test main_link_list.c)
 target_link_libraries(link_list_test link_list)
 target_include_directories(link_list_test PRIVATE
-        ../../src/link_list)
+        ../link_list)
+
 add_executable(multithreading_exe main_multithreading.c)
 target_link_libraries(multithreading_exe multithreading)
 
