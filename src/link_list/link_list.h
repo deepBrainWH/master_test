@@ -131,5 +131,7 @@ void create_frequent_linked_list(FreqNode *empty_head);
 //p038-20
 FreqNode* Locate(FreqNode* empty_head, Element_t x);
 
-void find_Kth_backwards_value(LinkList* empty_head);
+void find_Kth_backwards_value(LinkList* empty_head, int k);
+
+void process_linked_list(LinkList* empty_head, int n);
 #endif

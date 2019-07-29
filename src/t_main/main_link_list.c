@@ -110,33 +110,54 @@ int main(){
 //    print_cycle_single_direction_linked_list(list1, 1);
 
 //================
-    FreqNode* empty_head = (FreqNode*)malloc(sizeof(FreqNode));
-    empty_head->next = NULL;
-    empty_head->pre = NULL;
-    empty_head->frequent = -1;
-    empty_head->value = -9999;
-
-    create_frequent_linked_list(empty_head);
-    print_frequent_linked_list(empty_head);
-
-    Element_t x;
-    printf("\033[0;34mPlease input the value that you want to locate:\n\033[0m");
-    scanf("%d", &x);
-    FreqNode *pNode = NULL;
-    while (1){
-        pNode = Locate(empty_head, x);
-        if(pNode != NULL){
-            printf("locate address is: %p\n", pNode);
-        }else{
-            break;
-        }
-        printf("===update linked list order===\n");
-        print_frequent_linked_list(empty_head);
-        printf("==========end==========\n");
-        printf("\033[0;34mPlease input the value that you want to locate:\n\033[0m");
-        scanf("%d", &x);
-    }
+//    FreqNode* empty_head = (FreqNode*)malloc(sizeof(FreqNode));
+//    empty_head->next = NULL;
+//    empty_head->pre = NULL;
+//    empty_head->frequent = -1;
+//    empty_head->value = -9999;
+//
+//    create_frequent_linked_list(empty_head);
+//    print_frequent_linked_list(empty_head);
+//
+//    Element_t x;
+//    printf("\033[0;34mPlease input the value that you want to locate:\n\033[0m");
+//    scanf("%d", &x);
+//    FreqNode *pNode = NULL;
+//    while (1){
+//        pNode = Locate(empty_head, x);
+//        if(pNode != NULL){
+//            printf("locate address is: %p\n", pNode);
+//        }else{
+//            break;
+//        }
+//        printf("===update linked list order===\n");
+//        print_frequent_linked_list(empty_head);
+//        printf("==========end==========\n");
+//        printf("\033[0;34mPlease input the value that you want to locate:\n\033[0m");
+//        scanf("%d", &x);
+//    }
 
 //================
+//    LinkList *pNode = create_link_list3();
+//    print_list(pNode, 1);
+//    Element_t x;
+//    printf("\033[0;34mPlease input the value that you want to locate:\n\033[0m");
+//    scanf("%d", &x);
+//
+//    while (1){
+//        if(x==9999)break;
+//        find_Kth_backwards_value(pNode,x);
+//        printf("\033[0;34mPlease input the Kth that you want to locate:\n\033[0m");
+//        scanf("%d", &x);
+//    }
+//
+//    destroy_linked_list(pNode);
+//================
+    LinkList *pNode = create_link_list3();
+    print_list(pNode, 1);
+    process_linked_list(pNode, 20);
+    print_list(pNode, 1);
+
+
     return 0;
 }

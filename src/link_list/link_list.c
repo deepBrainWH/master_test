@@ -945,8 +945,51 @@ FreqNode *Locate(FreqNode *empty_head, Element_t x) {
     return p;
 }
 
-void find_Kth_backwards_value(LinkList *empty_head) {
+void find_Kth_backwards_value(LinkList *empty_head, int k) {
+    is_valid(empty_head);
+    if(k<=0){
+        printf("\033[1;31mPlease input the valid K number!\033[0m\n");
+        exit(-1);
+    }
+    Node* p = empty_head->next;
+    Node* q = empty_head->next;
+    for(int i = 0;i<k;i++){
+        if (p==NULL){
+            printf("\033[0;31mThere is an error is K\033[0m\n");
+            exit(-1);
+        }
+        p = p->next;
+    }
+    while (p != NULL){
+        p = p->next;
+        q = q->next;
+    }
+    printf("\033[1;35mThe backward Kth node's value is: %d\033[0m\n", q->val);
+}
 
+void process_linked_list(LinkList *empty_head, int n) {
+    is_valid(empty_head);
+    int* auxiliary_array = (int*)malloc(sizeof(n+1));
+    for(int i = 0;i<=n;i++){
+        auxiliary_array[i] = 0;
+    }
+    Node* p_pre = empty_head;
+    Node* p = empty_head->next;
+    Node* tmp = NULL;
+    int record_value;
+    while (p != NULL){
+        record_value = p->val>0?p->val:-p->val;
+        if(auxiliary_array[record_value]==0){
+            auxiliary_array[record_value] = 1;
+            p_pre = p_pre->next;
+            p = p->next;
+        }else{
+            tmp = p;
+            p = tmp->next;
+            p_pre->next = p;
+            free(tmp);
+        }
+    }
 }
 
 
