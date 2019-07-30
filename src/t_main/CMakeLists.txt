@@ -15,3 +15,5 @@ target_link_libraries(multithreading_exe multithreading)
 
 add_executable(stack_exe main_stack.c)
 target_link_libraries(stack_exe stack_queue)
+target_include_directories(stack_exe PUBLIC
+        ../stack)
