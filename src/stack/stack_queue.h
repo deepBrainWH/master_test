@@ -14,6 +14,7 @@ typedef struct Stack Stack;
 typedef struct circle_queue CircleQueue;
 typedef int stack_element_t;
 typedef int queue_element_t;
+typedef struct StackNode StackNode;
 
 struct Stack {
     stack_element_t *a;
@@ -27,6 +28,10 @@ struct circle_queue{
     int rear;
 };
 
+struct StackNode{
+    void* data;
+    StackNode* next;
+};
 
 
 void init_stack(Stack* s);
@@ -50,5 +55,19 @@ queue_element_t de_queue(CircleQueue* queue);
 void is_valid_of_circle_queue(CircleQueue* queue);
 
 void destroy_circle_queue(CircleQueue* queue);
+
+int judge_stack_operate_sequence_validation(char* seq);
+
+StackNode* create_empty_top_head();
+
+void Push(StackNode* top_head, void* value);
+
+void* Pop(StackNode* top_head);
+
+void free_stack_linked_list(StackNode* top_head);
+
+void shared_stack();
+
+void private_push(char* a, int label, int* top, char value);
 
 #endif //MASTER_TEST_STACK_QUEUE_H

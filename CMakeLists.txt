@@ -8,11 +8,13 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 set(CMAKE_DEBUG_POSTFIX "_d")
 
 set(CMAKE_SYSTEM_NAME Linux)
-
+set(CMAKE_BUILD_TYPE Debug)
 add_subdirectory(src/array_list)
 add_subdirectory(src/link_list)
 add_subdirectory(src/multithreading)
 add_subdirectory(src/stack)
 add_subdirectory(src/special_pointer)
-add_subdirectory(src/t_main)
-add_subdirectory(src/cc)
+add_subdirectory(src/queue_cc)
+
+add_subdirectory(src/t_main_c)
+add_subdirectory(src/t_main_cc)

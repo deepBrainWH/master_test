@@ -992,11 +992,3 @@ void process_linked_list(LinkList *empty_head, int n) {
     }
     free(auxiliary_array);
 }
-
-
-
-
-
-
-
-
