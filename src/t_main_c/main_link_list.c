@@ -154,10 +154,10 @@ int main(){
 //    destroy_linked_list(pNode);
 //================
     LinkList *pNode = create_link_list3();
-    print_list(pNode, 1);
-    process_linked_list(pNode, 20);
-    print_list(pNode, 1);
-
-
+//    print_list(pNode, 1);
+//    process_linked_list(pNode, 20);
+//    print_list(pNode, 1);
+    insert_sort_linked_list(pNode);
+    destroy_linked_list(pNode);
     return 0;
 }

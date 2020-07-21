@@ -992,3 +992,26 @@ void process_linked_list(LinkList *empty_head, int n) {
     }
     free(auxiliary_array);
 }
+
+void insert_sort_linked_list(LinkList *empty_head) {
+    is_valid(empty_head);
+    int min;
+    Node* p, *q, *r, *u;
+    p = empty_head->next;
+    empty_head->next = NULL;
+    
+    while (p!=NULL){
+        min = p->val;
+        r = empty_head;
+        q = empty_head->next;
+        while (q != NULL && q->val<min){
+            r = q;
+            q = q->next;
+        }
+        u = p->next;
+        p->next = r->next;
+        r->next = p;
+        p = u;
+    }
+
+}

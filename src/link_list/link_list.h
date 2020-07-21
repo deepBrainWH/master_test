@@ -134,4 +134,6 @@ FreqNode* Locate(FreqNode* empty_head, Element_t x);
 void find_Kth_backwards_value(LinkList* empty_head, int k);
 
 void process_linked_list(LinkList* empty_head, int n);
+
+void insert_sort_linked_list(LinkList* empty_head);
 #endif
