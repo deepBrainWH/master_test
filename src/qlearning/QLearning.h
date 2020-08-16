@@ -10,12 +10,8 @@
 
 using namespace std;
 
-
-typedef int current_state;
-typedef int action;
-
-struct FeedBack{
-    current_state next_state;
+struct FeedBack {
+    int next_state;
     float reward;
     bool is_end = false;
 };
@@ -23,52 +19,55 @@ struct FeedBack{
 class QLearning {
 private:
     float alpha = 0.01f;
+    float lambda = 0.9f;
+    float MAX_EPISODES = 20;
     int n_states = 8;
     int n_actions = 2;
     float reword[9] = {0, 0, 0, 0, 0, 0, 0, 0, 10};
     string actions[2] = {"left", "right"};
-    float** q_table;
+    float **q_table;
+    int current_state = 0;
+
 
 public:
     void init_q_table();
-    //更新环境状态
-    void update_environment(current_state, action);
 
-    void choose_action(current_state);
+    void update_environment(int, int);
+
+    /**
+     * 获取环境反馈
+     */
+    FeedBack get_env_feed_back(string action) {
+        FeedBack f = FeedBack();
+        if (action == "left") {
+            if (current_state - 1 < 0) {
+                f.next_state = current_state;
+            } else {
+                f.next_state = current_state - 1;
+            }
+            f.reward = reword[f.next_state];
+        } else {
+            if (current_state + 1 == n_states) {
+                //走到了终点
+                f.reward = 10;
+                f.is_end = true;
+            }
+        }
+        return f;
+    }
 
 };
 
 void QLearning::init_q_table() {
-    this->q_table = new float*[this->n_states];
-    for(int i = 0;i<n_states;i++){
+    this->q_table = new float *[this->n_states];
+    for (int i = 0; i < n_states; i++) {
         q_table[i] = new float[n_actions];
-        for(int j = 0;j<n_actions;j++){
+        for (int j = 0; j < n_actions; j++) {
             q_table[i][j] = 0;
         }
     }
-    q_table[n_states-1][1] = 10;
+    q_table[n_states - 1][1] = 10;
 }
 
-void QLearning::choose_action(current_state s) {
-    FeedBack f;
-    srand(time(NULL));
-    int i = rand() % 2;
-    string action = actions[i];
-    if(action == "left"){
-        if(s-1 < 0){
-            f.next_state = s;
-        }else{
-            f.next_state = s-1;
-        }
-        f.reward = this->reword[f.next_state];
-    }else{
-        if(s+1 == n_states){
-            //走到了终点
-            f.reward = 10;
-
-        }
-    }
-
-}
 
 #endif //MASTER_TEST_QLEARNING_H
