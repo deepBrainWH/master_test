@@ -1,3 +1,6 @@
 add_executable(array_1 practice_1.cpp)
 add_executable(candies practice_2.cpp)
 add_executable(practice_3 practice_3.cpp)
+add_executable(practice_4 practice_4.cpp)
+add_executable(practice_5 practice_5.cpp)
+add_executable(practice_6 practice_6.cpp)
