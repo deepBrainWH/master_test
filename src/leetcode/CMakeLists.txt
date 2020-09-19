@@ -4,3 +4,7 @@ add_executable(practice_3 practice_3.cpp)
 add_executable(practice_4 practice_4.cpp)
 add_executable(practice_5 practice_5.cpp)
 add_executable(practice_6 practice_6.cpp)
+add_executable(practice_7 practice_7.cpp)
+add_executable(practice_8 practice_8.cpp)
+add_executable(practice_9 practice_9.cpp)
+

@@ -1,6 +1,7 @@
 //
 // Created by wangheng on 7/21/20.
 //
+
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
@@ -10,7 +11,7 @@ using namespace std;
 using namespace cv;
 
 
-const string fileName = "/home/wangheng/workspace/CLionProjects/master_test/data/ziqi.jpg";
+const string fileName = "../data/ziqi.jpg";
 
 inline void help() {
     cout << endl
