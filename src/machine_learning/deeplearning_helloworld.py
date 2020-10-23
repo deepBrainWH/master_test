@@ -1,52 +1,44 @@
-from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.optimizers import SGD
-from tensorflow.keras.datasets import mnist
-from tensorflow.keras import utils
+# Gradient tap using guide.
+import tensorflow as tf
 
-def load_data():
-    (x_train, y_train), (x_test, y_test) = mnist.load_data()
-    number = 10000
-    x_train = x_train[0:number]
-    y_train = y_train[0:number]
+# 计算一届梯度
+def cal_1():
+    x = tf.Variable(3.)
+    with tf.GradientTape(persistent=True) as tape:
+        tape.watch(x)
+        y = tf.pow(x, 4)
+        dy_dx = tape.gradient(y, x)
+        print(dy_dx)
+        dy2_dx2 = tape.gradient(y, x)
+        print(dy2_dx2)
+    del tape
 
-    x_train = x_train.reshape(number, 28*28)
-    x_test = x_test.reshape(x_test.shape[0], 28*28)
-    x_train = x_train / 255
-    x_test = x_test / 255
+# 计算二阶梯度
+def cal_2():
+    x = tf.Variable(4.)
+    with tf.GradientTape() as tape1:
+        tape1.watch(x)
+        with tf.GradientTape() as tape2:
+            tape2.watch(x)
+            y = tf.pow(x, 4)
+            dy_dx = tape2.gradient(y, x) # y' = 4x^3
+            print(dy_dx)
+        dy2_dx2 = tape1.gradient(dy_dx, x) # y'' = 12x^2
+        print(dy2_dx2)
+    del tape1,tape2
 
-    y_train = utils.to_categorical(y_train, num_classes=10)
-    y_test = utils.to_categorical(y_test, num_classes=10)
+# 计算多个函数的梯度
+def cal_3():
+    x = tf.Variable(3.)
+    with tf.GradientTape(persistent=True) as tape:
+        tape.watch(x)
+        y = tf.pow(x, 4)        # y = x^4
+        z = tf.multiply(x, 3)   # z = 3*x
+        dy_dx = tape.gradient(y, x)
+        dz_dx = tape.gradient(z, x)
+        print(dy_dx)
+        print(dz_dx)
+    del tape
 
-    return x_train,y_train, x_test, y_test
-
-
-def create_model():
-    model = Sequential()
-    model.add(Dense(500, input_dim=28*28, activation="sigmoid"))
-    model.add(Dense(633, activation="sigmoid"))
-    model.add(Dense(512, activation="sigmoid"))
-    model.add(Dense(10, activation="softmax"))
-
-    # 定义评估model的好坏 categorical_crossentropy
-    model.compile(loss="categorical_crossentropy", optimizer=SGD(learning_rate=0.1),
-                  metrics=['accuracy'])
-    return model
-
-def fit_model(model, x_train, y_train, x_test, y_test):
-    # Training model
-    model.fit(x_train, y_train, batch_size=1000, epochs=20)
-    model.save(filepath="/home/wangheng/workspace/CLionProjects/master_test/trained_model/")
-    # Evaluating the goodness of trained model.
-    score = model.evaluate(x_test, y_test)
-    print("Total loss on Testing Set: ", score[0])
-    print("Accuracy of Testing Set: ", score[1])
-
-    # Predicting the score of trained model
-    predict_result = model.predict(x_test)
-
-if __name__ == '__main__':
-    x_train, y_train, x_test, y_test = load_data()
-    model = create_model()
-    fit_model(model, x_train, y_train, x_test, y_test)
+cal_3()
 

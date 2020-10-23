@@ -31,72 +31,41 @@ void task1() {
 
 //任务2-1:多帧图像加去除噪声
 void task2_1() {
-    int mode = 1;            //拍照模式选择：0为常规模式，1为连续帧平均模式。
-    int frame_number = 1;    //连续帧平均模式下的帧数计数
-    int frame_top = 20;        //定义连续帧平均模式下的帧数上限
-    int num_photo = 1;        //计算拍照总数
-    int num_top = 1;        //定义需要照片的数量
-    string num;        //为拍摄的照片取名字
+    int frame_top = 10;        //定义连续帧平均模式下的帧数上限
     VideoCapture capture(0);    //定义一个相机
-    //摄像头的基本设置
-    capture.set(CAP_PROP_FRAME_WIDTH, 960);//像素数量设置
-    capture.set(CAP_PROP_FRAME_HEIGHT, 720);
-    capture.set(CAP_PROP_CONTRAST, 90);//对比度设置
+    capture.set(CAP_PROP_FRAME_WIDTH, 500);
+    capture.set(CAP_PROP_FRAME_HEIGHT, 300);
+
     Mat frame;        //定义一个抓取图像的容器矩阵
-    Mat average = Mat::zeros(720, 960, CV_8UC3);    //定义一个用于做平均的容器，初始值置零
-    Mat tmp = Mat::zeros(720, 960, CV_8UC3);    //定义一个用于暂存的容器，初始值置零
-    if (mode == 1) //如果是连续帧平均模式
-    {
-        while (true)    //反复执行程序
-        {
-            capture >> frame;
-            imshow("实时图像", frame);    //remember, imshow() needs a window name for its first parameter
-//            if (waitKey(30) >= 0)//如果有按键
-//            {
-            average = Mat::zeros(720, 960, CV_8UC3);    //做平均的容器在每次使用时初始值置零
-            for (frame_number = 1; frame_number <= frame_top; frame_number++) //累积一定数量的相邻帧图片
-            {
-                capture >> frame; //读取一帧新的图
-                frame.convertTo(tmp, CV_8UC3); //强制类型转换，防止饱和，转换后的内容存放在暂存容器tmp中
-                average = average + tmp; //将tmp累积在平均容器中
+    Mat *frames = new Mat[frame_top];    //存储20帧图像
+    int i = 0;
+    Mat average;
+    namedWindow("result_image", WINDOW_FREERATIO);
+    while (true) {
+        capture >> frame;
+        if (frame.empty()) {
+            continue;
+        }
+        frames[i % frame_top] = frame;
+        i++;
+        if (i > frame_top) {
+            // 存储够一定数量的帧时再通过计算后显示降噪后的图像
+            average = Mat::zeros(frame.rows, frame.cols, CV_8UC3);
+            for (int j = 0; j < frame_top; j++) {
+                average += frames[j];
             }
             average = average / frame_top;
-            if (num_photo < 10)
-                num = "0" + to_string(num_photo);
-            else
-                num = to_string(num_photo);
-            average.convertTo(frame, CV_8UC3);
-            imwrite("image" + num + ".jpg", frame);
-            num_photo++;
-//            }
-
-            if (num_photo == (num_top + 1))//结束条件
+            average.convertTo(average, CV_8UC3);
+            imshow("result_image", average);
+            if (waitKey(1) == 27) {
                 break;
-        }
-    } else  //如果是普通拍照模式
-    {
-        while (true)    //用来反复执行程序
-        {
-            capture >> frame;
-            imshow("实时图像", frame);    //remember, imshow() needs a window name for its first parameter
-
-            if (waitKey(30) >= 0)//如果有按键
-            {
-                if (num_photo < 10)
-                    num = "0" + to_string(num_photo);
-                else
-                    num = to_string(num_photo);
-
-                imwrite("imagea" + num + ".jpg", frame);
-                num_photo++;
-
             }
-            if (num_photo == (num_top + 1))//结束条件
-                break;
         }
     }
     capture.release();
+    destroyAllWindows();
 }
+
 
 //帧差法检测运动目标
 void task2_2() {
@@ -152,7 +121,7 @@ void task2_2() {
 
 
 int main() {
-    task2_2();
+    task2_1();
     return 0;
 }
 
