@@ -31,31 +31,32 @@ void task1() {
 
 //任务2-1:多帧图像加去除噪声
 void task2_1() {
-    int frame_top = 10;        //定义连续帧平均模式下的帧数上限
+    int frame_top = 3;        //定义连续帧平均模式下的帧数上限
     VideoCapture capture(0);    //定义一个相机
-    capture.set(CAP_PROP_FRAME_WIDTH, 500);
-    capture.set(CAP_PROP_FRAME_HEIGHT, 300);
-
     Mat frame;        //定义一个抓取图像的容器矩阵
     Mat *frames = new Mat[frame_top];    //存储20帧图像
     int i = 0;
     Mat average;
     namedWindow("result_image", WINDOW_FREERATIO);
+    namedWindow("image", WINDOW_FREERATIO);
     while (true) {
         capture >> frame;
         if (frame.empty()) {
-            continue;
+            break;
         }
+        cvtColor(frame, frame, COLOR_BGR2GRAY);
+        frame.convertTo(frame, CV_16UC1);
         frames[i % frame_top] = frame;
         i++;
+        imshow("image", frame);
         if (i > frame_top) {
             // 存储够一定数量的帧时再通过计算后显示降噪后的图像
-            average = Mat::zeros(frame.rows, frame.cols, CV_8UC3);
+            average = Mat::zeros(frame.rows, frame.cols, CV_16UC1);
             for (int j = 0; j < frame_top; j++) {
                 average += frames[j];
             }
             average = average / frame_top;
-            average.convertTo(average, CV_8UC3);
+            average.convertTo(average, CV_8UC1);
             imshow("result_image", average);
             if (waitKey(1) == 27) {
                 break;
