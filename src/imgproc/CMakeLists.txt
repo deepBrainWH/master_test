@@ -12,5 +12,10 @@ target_link_libraries(mat_mask_operation ${OpenCV_LIBS})
 
 add_executable(video2imageSequence video2imageSequence.cpp)
 target_link_libraries(video2imageSequence ${OpenCV_LIBS})
-#target_link_libraries(mat_mask_operation -lopencv_core -lopencv_imgproc -lopencv_imgcodecs
-#        -lopencv_highgui)
+
+add_executable(moving_object_detect moving_object_detect.cpp)
+target_link_libraries(moving_object_detect ${OpenCV_LIBS})
+
+
+add_executable(ros_region roi_region.cpp)
+target_link_libraries(ros_region ${OpenCV_LIBS})

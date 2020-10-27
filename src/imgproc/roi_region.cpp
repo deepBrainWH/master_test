@@ -1,4 +1,34 @@
 //
 // Created by wangheng on 20-10-24.
 //
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui.hpp>
 
+using namespace std;
+using namespace cv;
+
+int main()
+{
+    Mat image, mask;
+    Rect r1(100, 100, 250, 300);
+    Mat img1, img2, img3, img4;
+    image = imread("/home/wangheng/workspace/CLionProjects/master_test/data/ziqi.jpg");
+    resize(image, image, Size(800, 600));
+    mask = Mat::zeros(image.size(), CV_8UC1);//第一步建立与原图一样大小的mask图像，并将所有像素初始化为0，因此全图成了一张全黑色图
+    mask(r1).setTo(255);//第二步将mask图中的r1区域的所有像素值设置为255,也就是整个r1区域变成了白色。这样就能得到Mask图像了。
+    img1 = image(r1);
+    image.copyTo(img2, mask);//注意这句，原图(image)与掩膜(mask)进行与运算后得到了结果图（img2）
+
+    image.copyTo(img3);
+    img3.setTo(0, mask);
+
+    imshow("Image sequence", image);
+    imshow("img1", img1);
+    imshow("img2", img2);
+    imshow("img3", img3);
+    imshow("mask", mask);
+    waitKey();
+    return 0;
+}
